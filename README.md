@@ -10,7 +10,6 @@ docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.
 ```
 docker-compose up -d
 ```
-
 3. **Execute query**
 ```
 CREATE KEYSPACE mykeyspace
@@ -24,8 +23,9 @@ CREATE TABLE mykeyspace.mytable (
 	id int primary key,
 	name text
 );
-
-
+```
+or
+```
 CREATE KEYSPACE mykeyspace WITH replication = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1, 'datacenter2' : 1 };
 
 CREATE TABLE mykeyspace.mytable (id int primary key, name text);
