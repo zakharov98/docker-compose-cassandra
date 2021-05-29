@@ -1,0 +1,28 @@
+version: '3'
+services:
+    cassandra-node1:
+        image: cassandra:latest
+        ports:
+            - 5555:5555
+        volumes:
+            - ./init-scripts:/docker-entrypoint-initdb.d
+        environment:
+            - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+            - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+            - CASSANDRA_DC=datacenter1
+
+    cassandra-node2:
+        image: cassandra:latest
+        environment:
+            - CASSANDRA_SEEDS=cassandra-node1
+            - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+            - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+            - CASSANDRA_DC=datacenter1
+
+    cassandra-node3:
+        image: cassandra:latest
+        environment:
+            - CASSANDRA_SEEDS=cassandra-node1
+            - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+            - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+            - CASSANDRA_DC=datacenter2
